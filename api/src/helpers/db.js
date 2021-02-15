@@ -6,6 +6,7 @@ module.exports.connectDb = () => {
         {
             useNewUrlParser: true,
             useCreateIndex: true,
+            useUnifiedTopology: true,
         })
     return mongoose.connection
 }
