@@ -3,7 +3,7 @@ const express = require("express")
 const app = express()
 
 //Init middleware
-app.use(express.json({extended: false}))
+app.use(express.json())
 
 //define routes
 app.use('/auth' ,require('./routes/api/auth'))
