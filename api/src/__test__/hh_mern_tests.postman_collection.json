@@ -1,0 +1,648 @@
+{
+	"info": {
+		"_postman_id": "4e75d2ff-d036-4c91-a624-d3242c5b5ea6",
+		"name": "hh_mern_tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "Get Auth User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjAyMGY3NTgxODUxMWMwMWZjOWJmODlkIn0sImlhdCI6MTYxMjc5Nzg2MSwiZXhwIjoxNjEyODAxNDYxfQ.xEXH4LUytWay3mzaoOWiKm8jZoXN-z8S1yGESyjeIlI",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://docker_example.local/api/auth",
+							"protocol": "http",
+							"host": [
+								"docker_example",
+								"local"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"TOKEN\", data.token);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"newtest_1@test.com\",\n    \"password\": \"23423325235\"\n}"
+						},
+						"url": {
+							"raw": "http://docker_example.local/api/auth",
+							"protocol": "http",
+							"host": [
+								"docker_example",
+								"local"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "Get My Profile",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://docker_example.local/api/profile/me",
+							"protocol": "http",
+							"host": [
+								"docker_example",
+								"local"
+							],
+							"path": [
+								"api",
+								"profile",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Put My Profile Experience",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Head of head QA\",\n    \"company\": \"Sber\",\n    \"location\": \"Moscow\",\n    \"from\": \"7-12-2020\",\n    \"current\": true,\n    \"description\": \"My description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/profile/experience",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"experience"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Profile by User ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "http://docker_example.local/api/profile/user/{{USER_ID}}",
+							"protocol": "http",
+							"host": [
+								"docker_example",
+								"local"
+							],
+							"path": [
+								"api",
+								"profile",
+								"user",
+								"{{USER_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create and Update User Profile",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"sber\",\n    \"status\": \"QA Lead\",\n    \"website\": \"test@test.com\",\n    \"skills\": \"Postman, Vanessa, OneScript\",\n    \"location\": \"Moscow RF\",\n    \"bio\": \"test byo\",\n    \"githubusername\": \"https://github.com/afanasievkirill/flask_shop_example\",\n    \"twitter\": \"my twitter\",\n    \"facebook\": \"my twitter\",\n    \"youtube\": \"my twitter\",\n    \"instagram\": \"my twitter\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://docker_example.local/api/profile",
+							"protocol": "http",
+							"host": [
+								"docker_example",
+								"local"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{HOST}}/api/profile",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						},
+						"description": "//@router GET api/profile\n//@desc   Get all profiles\n//@access Public"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "posts",
+			"item": []
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"NewUser_1\",\n    \"email\": \"mynewuser_1@test.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "http://docker_example.local/api/users/",
+							"protocol": "http",
+							"host": [
+								"docker_example",
+								"local"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User & Profile CRUD tests",
+			"item": [
+				{
+					"name": "1. Register User for CRUD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"CRUD_TOKEN\", data.token);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Сергей Сергеич\",\n    \"email\": \"canada@vancover.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/users/",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Create Profile for CRUD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{CRUD_TOKEN}}"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company\": \"Tesla\",\n    \"status\": \"It Chief\",\n    \"website\": \"test@test.com\",\n    \"skills\": \"Umeyu krasivo govority\",\n    \"location\": \"Vancover\",\n    \"bio\": \"test byo\",\n    \"githubusername\": \"https://github.com/afanasievkirill/flask_shop_example\",\n    \"twitter\": \"my twitter\",\n    \"facebook\": \"my twitter\",\n    \"youtube\": \"my twitter\",\n    \"instagram\": \"my twitter\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/profile",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Put Profile Experience CRUD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"CRUD_EXPERIENS_ID\", data.experience[0]._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{CRUD_TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"It director\",\n    \"company\": \"Sber\",\n    \"location\": \"Moscow\",\n    \"from\": \"7-12-2011\",\n     \"to\": \"01-01-2018\",\n    \"current\": false,\n    \"description\": \"I am genius\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/profile/experience",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"experience"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Put Education Experience CRUD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"CRUD_EDUCATION_ID\", data.experience[0]._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{CRUD_TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"school\": \"It school\",\n    \"degree\": \"degree\",\n    \"fieldofstudy\": \"fieldofstudy\",\n    \"from\": \"7-12-2011\",\n     \"to\": \"01-01-2018\",\n    \"current\": false,\n    \"description\": \"I am genius\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/profile/education",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"education"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5. Delete Profile Experience CRUD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"CRUD_EXPERIENS_ID\", data.experience._id);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{CRUD_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/api/profile/experience/{{CRUD_EXPERIENS_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"experience",
+								"{{CRUD_EXPERIENS_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6. Delete Education Experience CRUD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();",
+									"pm.environment.set(\"CRUD_EXPERIENS_ID\", data.experience._id);",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{CRUD_TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/api/profile/education/{{CRUD_EDUCATION_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile",
+								"education",
+								"{{CRUD_EDUCATION_ID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7. Delete profile, user & posts CRUD",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "x-auth-token",
+								"value": "{{CRUD_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/api/profile",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
