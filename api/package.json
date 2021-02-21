@@ -10,7 +10,6 @@
   "author": "afanasievkirill",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "config": "^3.3.3",
@@ -20,6 +19,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.8",
     "nodemon": "^2.0.6",
-    "requests": "^0.3.0"
+    "request": "^2.88.2"
   }
 }

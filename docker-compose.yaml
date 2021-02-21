@@ -20,6 +20,8 @@ services:
       - PORT=3001
       - MONGO_URL=mongodb://api_db:27017/api
       - JWT=devcoonector
+      - GithubClientID=${GithubClientID}
+      - GithubClientSecret=${GithubClientSecret}
     depends_on:
       - api_db
     networks:

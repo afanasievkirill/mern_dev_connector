@@ -114,6 +114,47 @@
 					"response": []
 				},
 				{
+					"name": "Get My Github",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://docker_example.local/api/profile/github/{{GITHUB_NAME}}",
+							"protocol": "http",
+							"host": [
+								"docker_example",
+								"local"
+							],
+							"path": [
+								"api",
+								"profile",
+								"github",
+								"{{GITHUB_NAME}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Put My Profile Experience",
 					"request": {
 						"method": "PUT",
@@ -283,7 +324,7 @@
 			"name": "User & Profile CRUD tests",
 			"item": [
 				{
-					"name": "1. Register User for CRUD",
+					"name": "1. Register User",
 					"event": [
 						{
 							"listen": "test",
@@ -330,7 +371,7 @@
 					"response": []
 				},
 				{
-					"name": "2. Create Profile for CRUD",
+					"name": "2. Create Profile",
 					"event": [
 						{
 							"listen": "test",
@@ -383,7 +424,7 @@
 					"response": []
 				},
 				{
-					"name": "3. Put Profile Experience CRUD",
+					"name": "3. Put Profile Experience",
 					"event": [
 						{
 							"listen": "test",
@@ -436,7 +477,7 @@
 					"response": []
 				},
 				{
-					"name": "4. Put Education Experience CRUD",
+					"name": "4. Put Education Experience",
 					"event": [
 						{
 							"listen": "test",
@@ -489,7 +530,7 @@
 					"response": []
 				},
 				{
-					"name": "5. Delete Profile Experience CRUD",
+					"name": "5. Delete Profile Experience",
 					"event": [
 						{
 							"listen": "test",
@@ -534,7 +575,7 @@
 					"response": []
 				},
 				{
-					"name": "6. Delete Education Experience CRUD",
+					"name": "6. Delete Education Experience",
 					"event": [
 						{
 							"listen": "test",
@@ -579,7 +620,7 @@
 					"response": []
 				},
 				{
-					"name": "7. Delete profile, user & posts CRUD",
+					"name": "7. Delete profile, user & posts",
 					"event": [
 						{
 							"listen": "test",
@@ -604,8 +645,8 @@
 							},
 							{
 								"key": "x-auth-token",
-								"value": "{{CRUD_TOKEN}}",
-								"type": "text"
+								"type": "text",
+								"value": "{{CRUD_TOKEN}}"
 							}
 						],
 						"url": {
