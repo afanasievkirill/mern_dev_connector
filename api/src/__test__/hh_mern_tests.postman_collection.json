@@ -20,11 +20,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://docker_example.local/api/auth",
+							"raw": "http://{{HOST}}/api/auth",
 							"protocol": "http",
 							"host": [
-								"docker_example",
-								"local"
+								"{{HOST}}"
 							],
 							"path": [
 								"api",
@@ -67,11 +66,10 @@
 							"raw": "{\n    \"email\": \"newtest_1@test.com\",\n    \"password\": \"23423325235\"\n}"
 						},
 						"url": {
-							"raw": "http://docker_example.local/api/auth",
+							"raw": "http://{{HOST}}/api/auth",
 							"protocol": "http",
 							"host": [
-								"docker_example",
-								"local"
+								"{{HOST}}"
 							],
 							"path": [
 								"api",
@@ -283,7 +281,7 @@
 			"name": "posts",
 			"item": [
 				{
-					"name": "Post Create Post",
+					"name": "1. Post Create Post",
 					"event": [
 						{
 							"listen": "test",
@@ -292,6 +290,9 @@
 									"pm.test(\"Status code is 201\", function () {",
 									"    pm.response.to.have.status(201);",
 									"});",
+									"",
+									"var data = pm.response.json();",
+									"pm.environment.set(\"POST_ID\", data._id);",
 									""
 								],
 								"type": "text/javascript"
@@ -309,7 +310,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"text\": \"My first post\"\n}",
+							"raw": "{\n    \"text\": \"Another post!\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -332,6 +333,250 @@
 									"value": "{{TOKEN}}",
 									"disabled": true
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2. Get All Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/api/posts",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "x-auth-token",
+									"value": "{{TOKEN}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3. Get Post By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"My first post\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/posts/{{POST_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{POST_ID}}"
+							],
+							"query": [
+								{
+									"key": "x-auth-token",
+									"value": "{{TOKEN}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4. Delete Post By ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/api/posts/{{POST_ID}}",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"{{POST_ID}}"
+							],
+							"query": [
+								{
+									"key": "x-auth-token",
+									"value": "{{TOKEN}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post By Invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/api/posts/60337ae016405f0033ae46f3",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"60337ae016405f0033ae46f3"
+							],
+							"query": [
+								{
+									"key": "x-auth-token",
+									"value": "{{TOKEN}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Post By ID Invalid Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{HOST}}/api/posts/1",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"posts",
+								"1"
 							]
 						}
 					},
