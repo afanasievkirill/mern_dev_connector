@@ -35,7 +35,7 @@
 					"response": []
 				},
 				{
-					"name": "Post Login User",
+					"name": "Post Auth User",
 					"event": [
 						{
 							"listen": "test",
@@ -58,8 +58,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"value": "application/json",
-								"type": "text"
+								"type": "text",
+								"value": "application/json"
 							}
 						],
 						"body": {
@@ -138,11 +138,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://docker_example.local/api/profile/github/{{GITHUB_NAME}}",
+							"raw": "http://{{HOST}}/api/profile/github/{{GITHUB_NAME}}",
 							"protocol": "http",
 							"host": [
-								"docker_example",
-								"local"
+								"{{HOST}}"
 							],
 							"path": [
 								"api",
@@ -282,7 +281,118 @@
 		},
 		{
 			"name": "posts",
-			"item": []
+			"item": [
+				{
+					"name": "Post Create Post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"value": "{{TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"text\": \"My first post\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/posts",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "x-auth-token",
+									"value": "{{TOKEN}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Create Post Invalid Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {",
+									"    pm.response.to.have.status(404);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-auth-token",
+								"type": "text",
+								"value": "{{TOKEN}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/posts",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "x-auth-token",
+									"value": "{{TOKEN}}",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "users",
@@ -353,7 +463,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Сергей Сергеич\",\n    \"email\": \"canada@vancover.com\",\n    \"password\": \"123456\"\n}"
+							"raw": "{\n    \"name\": \"Сергей Сергеич\",\n    \"email\": \"canada1@vancover.com\",\n    \"password\": \"123456\"\n}"
 						},
 						"url": {
 							"raw": "http://{{HOST}}/api/users/",

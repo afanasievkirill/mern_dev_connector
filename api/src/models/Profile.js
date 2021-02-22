@@ -1,8 +1,8 @@
-const moongose = require('mongoose')
+const mongoose = require('mongoose')
 
-ProfileSchema = new moongose.Schema({
+ProfileSchema = new mongoose.Schema({
     user: {
-        type: moongose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
     },
     company: {
@@ -110,4 +110,4 @@ ProfileSchema = new moongose.Schema({
     }
 })
 
-module.exports = Profile =moongose.model('profile', ProfileSchema)
+module.exports = Profile =mongoose.model('profile', ProfileSchema)

@@ -1,56 +1,56 @@
-const moongose = require('mongoose')
-const Schema = moongose.Schema
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const PostSchema = new Schema({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'users'
     },
-    text:{
+    text: {
         type: String,
         required: true
     },
     name: {
         type: String
     },
-    avatar:{
+    avatar: {
         type: String
     },
-    likes:[
+    likes: [
         {
-            user:{
-                type:Schema.Types.ObjectId,
+            user: {
+                type: Schema.Types.ObjectId,
                 ref: 'users'
             }
         }
     ],
-    comments:[
+    comments: [
         {
-            user:{
-                type:Schema.Types.ObjectId,
+            user: {
+                type: Schema.Types.ObjectId,
                 ref: 'users'
             },
-            text:{
+            text: {
                 type: String,
-                required:true
+                required: true
             },
             name: {
                 type: String
             },
-            avatar:{
+            avatar: {
                 type: String
             },
-            date:{
+            date: {
                 type: Date,
                 default: Date.now
             }
         }
     ],
-    date:{
+    date: {
         type: Date,
         default: Date.now
     }
 })
 
-module.exports = Post = moongose.model('post', PostSchema)
+module.exports = Post = mongoose.model('post', PostSchema)
 
