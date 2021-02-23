@@ -1,33 +1,18 @@
-import logo from './logo.svg';
-import './App.css';
-import axios from "axios";
+import React, {Fragment} from 'react'
+import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
-function App() {
-  const makeApiRequest = () => {
-    console.log("Make api request");
-    axios("/api/currentUser").then(response => {
-      console.log("response", response);
-    });
-  };
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload to docker!!
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <button onClick={makeApiRequest}>Make api request</button>
-    </div>
-  );
-}
+import './App.css'
+import Navbar from './components/layout/Navbar'
+import Landing from './components/layout/Landing'
+
+
+const App = () => (
+    <Router>
+        <Fragment>
+            <Navbar/>
+            <Route exact path='/' component={Landing}/>
+        </Fragment>
+    </Router>
+)
 
 export default App;
