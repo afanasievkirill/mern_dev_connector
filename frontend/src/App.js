@@ -4,6 +4,8 @@ import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import './App.css'
 import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
+import Login from './auth/Login'
+import Register from './auth/Register'
 
 
 const App = () => (
@@ -11,6 +13,12 @@ const App = () => (
         <Fragment>
             <Navbar/>
             <Route exact path='/' component={Landing}/>
+            <section className="container">
+                <Switch>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/register" component={Register}/>
+                </Switch>
+            </section>
         </Fragment>
     </Router>
 )
