@@ -6,8 +6,9 @@ import './App.css'
 import store from "./store";
 import Navbar from './components/layout/Navbar'
 import Landing from './components/layout/Landing'
-import Login from './auth/Login'
-import Register from './auth/Register'
+import Alert from './components/layout/Alert'
+import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 
 
 const App = () => (
@@ -17,6 +18,7 @@ const App = () => (
                 <Navbar/>
                 <Route exact path='/' component={Landing}/>
                 <section className="container">
+                    <Alert/>
                     <Switch>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
