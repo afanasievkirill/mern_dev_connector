@@ -309,25 +309,25 @@ router.delete('/education/:edu_id',
 // @desc   Get user repos from Github
 // @access Public
 router.get('/github/:username', (req, res) => {
-        try {
-            const options = {
-                uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5
+    try {
+        const options = {
+            uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5
             &sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`,
-                method: 'GET',
-                headers: {'user-agent': 'node-js'}
-            }
-            request(options, (error, responce, body) => {
-                if (error) console.error(error)
-                if (responce.statusCode !== 200) {
-                    res.status(400).json({msg: "No Github profile found"})
-                }
-                res.json(JSON.parse(body))
-            })
-        } catch
-            (err) {
-            console.error(err.message)
-            res.status(500).send('Server Error')
+            method: 'GET',
+            headers: {'user-agent': 'node-js'}
         }
+        request(options, (error, responce, body) => {
+            if (error) console.error(error)
+            if (responce.statusCode !== 200) {
+                res.status(400).json({msg: "No Github profile found"})
+            }
+            res.json(JSON.parse(body))
+        })
+    } catch
+        (err) {
+        console.error(err.message)
+        res.status(500).send('Server Error')
+    }
 })
 
-module.exports = router;
+module.exports = router
