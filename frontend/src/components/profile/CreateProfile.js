@@ -1,30 +1,35 @@
 import React, {Fragment, useState} from 'react'
+import {withRouter} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 
-const CreateProfile = props => {
-    const [formData, setFormData] = useState({
-        company: '',
-        website: '',
-        location: '',
-        status: '',
-        skills: '',
-        githubusername: '',
-        bio: '',
-        twitter: '',
-        facebook: '',
-        linkedin: '',
-        instagram: '',
-        youtube: '',
-    })
+import { createProfile} from '../../actions/profile'
+
+const initialState = {
+    status: '',
+    company: '',
+    website: '',
+    location: '',
+    skills: '',
+    githubusername: '',
+    bio: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    instagram: '',
+    youtube: '',
+}
+
+const CreateProfile = ({createProfile, history}) => {
+    const [formData, setFormData] = useState(initialState)
 
     const [displaySocialInputs, toggleSocialInputs] = useState(false)
 
     const {
+        status,
         company,
         website,
         location,
-        status,
         skills,
         githubusername,
         bio,
@@ -35,7 +40,12 @@ const CreateProfile = props => {
         youtube,
     } = formData
 
-    const onChange = e => setFormData({...setFormData, [e.target.name]: e.target.value})
+    const onChange = e => setFormData({...formData, [e.target.name]: e.target.value})
+
+    const onSubmit = e => {
+        e.preventDefault()
+        createProfile(formData, history)
+    }
 
     return (
         <Fragment>
@@ -47,7 +57,7 @@ const CreateProfile = props => {
                 profile stand out
             </p>
             <small>* = required field</small>
-            <form className="form">
+            <form className="form" onSubmit={e => onSubmit(e)}>
                 <div className="form-group">
                     <select name="status" value={status} onChange={e => onChange(e)}>
                         <option value="0">* Select Professional Status</option>
@@ -60,8 +70,7 @@ const CreateProfile = props => {
                         <option value="Intern">Intern</option>
                         <option value="Other">Other</option>
                     </select>
-                    <small className="form-text"
-                    >Give us an idea of where you are at in your career</small>
+                    <small className="form-text">Give us an idea of where you are at in your career</small>
                 </div>
                 <div className="form-group">
                     <input
@@ -197,6 +206,10 @@ const CreateProfile = props => {
     )
 }
 
-CreateProfile.propTypes = {}
+CreateProfile.propTypes = {
+    createProfile: PropTypes.func.isRequired
+}
 
-export default CreateProfile
+
+
+export default connect(null, {createProfile}) (withRouter(CreateProfile))
