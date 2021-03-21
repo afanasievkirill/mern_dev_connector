@@ -32,6 +32,51 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Frontend Auth User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"firsname@firsname.com\",\n    \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "http://{{HOST}}/api/auth",
+							"protocol": "http",
+							"host": [
+								"{{HOST}}"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -958,7 +1003,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Сергей Сергеич\",\n    \"email\": \"canada1@vancover.com\",\n    \"password\": \"123456\"\n}"
+							"raw": "{\n    \"name\": \"Иванов Сергеич\",\n    \"email\": \"test@test.com\",\n    \"password\": \"123456\"\n}"
 						},
 						"url": {
 							"raw": "http://{{HOST}}/api/users/",
@@ -1007,7 +1052,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"company\": \"Tesla\",\n    \"status\": \"It Chief\",\n    \"website\": \"test@test.com\",\n    \"skills\": \"Umeyu krasivo govority\",\n    \"location\": \"Vancover\",\n    \"bio\": \"test byo\",\n    \"githubusername\": \"https://github.com/afanasievkirill/flask_shop_example\",\n    \"twitter\": \"my twitter\",\n    \"facebook\": \"my twitter\",\n    \"youtube\": \"my twitter\",\n    \"instagram\": \"my twitter\"\n}",
+							"raw": "{\n    \"company\": \"HH\",\n    \"status\": \"Head of QA\",\n    \"website\": \"test@test.com\",\n    \"skills\": \"1c, Gherkin\",\n    \"location\": \"Moscow\",\n    \"bio\": \"test byo\",\n    \"githubusername\": \"https://github.com/afanasievkirill/flask_shop_example\",\n    \"twitter\": \"my twitter\",\n    \"facebook\": \"my twitter\",\n    \"youtube\": \"my twitter\",\n    \"instagram\": \"my twitter\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1059,7 +1104,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"It director\",\n    \"company\": \"Sber\",\n    \"location\": \"Moscow\",\n    \"from\": \"7-12-2011\",\n     \"to\": \"01-01-2018\",\n    \"current\": false,\n    \"description\": \"I am genius\"\n}",
+							"raw": "{\n    \"title\": \"Head of QA\",\n    \"company\": \"Sber\",\n    \"location\": \"Moscow\",\n    \"from\": \"7-12-2011\",\n     \"to\": \"01-01-2018\",\n    \"current\": false,\n    \"description\": \"I am genius\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
