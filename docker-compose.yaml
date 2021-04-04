@@ -10,7 +10,16 @@ services:
     restart: unless-stopped
     networks:
       - my_network
-
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - prometheus_data:/prometheus
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    container_name: dc_prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - '9090:9090'
   api:
     build: ./api
     container_name: dc_api
@@ -50,6 +59,7 @@ services:
 
 volumes:
   mongodb_api:
+  prometheus_data: {}
 
 networks:
   my_network:
