@@ -28,7 +28,7 @@ services:
       - my_network
 
   nginx:
-    image: nginx:stable-alpine
+    image: nginx:1.19.7-alpine
     container_name: dc_nginx
     ports:
     - "80:80"
@@ -41,7 +41,7 @@ services:
       - my_network
 
   api_db:
-    image: mongo:latest
+    image: mongo:4.2.12
     container_name: dc_api_db
     volumes:
       - mongodb_api:/data/db
